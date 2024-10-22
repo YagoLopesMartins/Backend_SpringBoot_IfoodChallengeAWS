@@ -13,9 +13,10 @@ import java.util.List;
 public class ProductService {
     private final CategoryService categoryService;
     private final ProductRepository repository;
-    //private final AwsSnsService snsService;
+    // private final AwsSnsService snsService;
 
-    public ProductService(CategoryService categoryService, ProductRepository productRepository /*, AwsSnsService snsService*/){
+    public ProductService(CategoryService categoryService, ProductRepository productRepository
+            /*, AwsSnsService snsService*/){
         this.categoryService = categoryService;
         this.repository = productRepository;
        // this.snsService = snsService;
@@ -37,8 +38,11 @@ public class ProductService {
         Product product = this.repository.findById(id)
                 .orElseThrow(ProductNotFoundException::new);
 
-        this.categoryService.getById(productData.categoryId())
-                .orElseThrow(CategoryNotFoundException::new);
+      //  if(productData.categoryId() != null) {
+            this.categoryService.getById(productData.categoryId())
+                    .orElseThrow(CategoryNotFoundException::new);
+            // TODO: mudar linha anterior para essa   .ifPresent(product::setCategory);
+      //  }
 
         if(!productData.title().isEmpty()) product.setTitle(productData.title());
         if(!productData.description().isEmpty()) product.setDescription(productData.description());

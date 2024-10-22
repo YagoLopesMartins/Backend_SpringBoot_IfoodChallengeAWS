@@ -17,6 +17,7 @@ public class CategoryController {
     public  CategoryController(CategoryService service){
         this.service = service;
     }
+
     @PostMapping
     public ResponseEntity<Category> insert(@RequestBody CategoryDTO categoryData){
         Category newCategory = this.service.insert(categoryData);
@@ -28,7 +29,6 @@ public class CategoryController {
         List<Category> categories = this.service.getAll();
         return ResponseEntity.ok().body(categories);
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<Category> update(@PathVariable("id") String id, @RequestBody CategoryDTO categoryData){
